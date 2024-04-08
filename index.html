@@ -20,13 +20,29 @@
             window.location.href = 'https://itunes.apple.com/app/id6478385426';
         }, 1000); // 延迟时间可以根据需要调整，这里设置为 1 秒
     };
-    document.getElementById('openAccessApp').onclick = function() {
+    // document.getElementById('openAccessApp').onclick = function() {
+    //     window.location.href = 'https://scanuat.lockly.com/access/oac?btName=LOCKLYTB000083';
+
+    //     setTimeout(function() {
+    //         window.location.href = 'https://itunes.apple.com/app/id6478385426';
+    //     }, 1000); // 延迟时间可以根据需要调整，这里设置为 1 秒
+    // };
+
+    document.getElementById('openAccessApp').addEventListener('click', function() {
+        var clickedAt = +new Date();
+
+        // 尝试通过 Universal Link 打开应用
         window.location.href = 'https://scanuat.lockly.com/access/oac?btName=LOCKLYTB000083';
 
+        // 检测是否在短时间内（如2秒内）返回了当前页面
         setTimeout(function() {
-            window.location.href = 'https://itunes.apple.com/app/id6478385426';
-        }, 1000); // 延迟时间可以根据需要调整，这里设置为 1 秒
-    };
+            var now = +new Date();
+            if (now - clickedAt < 2000) {
+                // 如果是在短时间内返回，很可能是因为应用未安装
+                window.location.href = 'https://itunes.apple.com/app/id6478385426';
+            }
+        }, 500); // 延迟检查，给予足够时间尝试打开应用
+    });
 </script>
 
 </body>
